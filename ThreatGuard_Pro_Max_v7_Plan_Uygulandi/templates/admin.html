@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel | ThreatGuard v6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css?v=v6">
+</head>
+<body>
+<nav class="top-nav">
+    <div class="logo">ThreatGuard <span>v6 Admin</span></div>
+    <div class="nav-links">
+        <a href="/">Ana Sayfa</a><a href="/link">Link</a><a href="/dashboard">Panel</a><a href="/export-json">JSON İndir</a><a href="/export-csv">CSV İndir</a>
+    </div>
+</nav>
+<main class="page">
+    <section class="section-title">
+        <h1>ThreatGuard v6 Yönetim ve Entegrasyon Paneli</h1>
+        <p>API anahtarları, demo tehdit haritası, dışa aktarma ve sistem durumu.</p>
+    </section>
+    <section class="stats">
+        {% for name, active in api_status.items() %}
+        <div class="stat-card {% if active %}safe{% else %}warning{% endif %}">
+            <h3>{{ name|upper }}</h3>
+            <span>{% if active %}Aktif{% else %}Pasif{% endif %}</span>
+            <p>{% if active %}Render ortam değişkeni tanımlı{% else %}API anahtarı eklenmemiş; demo modu{% endif %}</p>
+        </div>
+        {% endfor %}
+    </section>
+    <section class="table-box">
+        <h2>Demo Canlı Tehdit Haritası</h2>
+        <p class="muted">Bu tablo sunum/demo amaçlı sentetik veridir; gerçek olay iddiası taşımaz.</p>
+        <table>
+            <thead><tr><th>Şehir</th><th>Phishing</th><th>SMS</th><th>Dezenformasyon</th><th>Risk</th></tr></thead>
+            <tbody>
+                {% for item in threat_map %}
+                <tr><td>{{ item.city }}</td><td>{{ item.phishing }}</td><td>{{ item.sms }}</td><td>{{ item.news }}</td><td>{{ item.risk }}</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+    <section class="insight-grid">
+        <div class="insight-card"><h2>Nasıl API Eklenir?</h2><p>Render → Environment bölümüne VIRUSTOTAL_API_KEY, GOOGLE_SAFE_BROWSING_KEY, ABUSEIPDB_API_KEY veya OPENAI_API_KEY ekleyebilirsin.</p></div>
+        <div class="insight-card"><h2>Dışa Aktarma</h2><p>Analiz geçmişini JSON veya CSV olarak indirip sunumda rapor/kanıt olarak gösterebilirsin.</p></div>
+        <div class="insight-card"><h2>Karar Destek</h2><p>Sistem kesin hüküm vermez; risk puanı, bulgu, önerilen aksiyon ve güven skoru üretir.</p></div>
+    </section>
+</main>
+</body>
+</html>

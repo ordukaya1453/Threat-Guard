@@ -1,0 +1,15 @@
+ThreatGuard Pro Max - Geliştirilmiş Sürüm
+
+Yapılan geliştirmeler:
+- Link sayfasına örnek link kartları eklendi.
+- Haber sayfasına haber senaryosu kartları eklendi.
+- SMS sayfası telefon görünümü yapılmadı, sade bırakıldı.
+- AI sonucu daha profesyonel risk/güven puanı görünümüne alındı.
+- Dashboard daha profesyonel hale getirildi.
+- Yükleniyor animasyonu eklendi.
+- Mail ve QR menüden kaldırıldı.
+
+Çalıştırma:
+1. ZIP dosyasını normal klasöre çıkar.
+2. calistir_windows.bat dosyasına çift tıkla.
+3. Tarayıcıdan http://127.0.0.1:5050 adresini aç.

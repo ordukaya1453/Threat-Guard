@@ -1,0 +1,16 @@
+ThreatGuard Pro Max v6 - Eklenenler
+
+1) Admin paneli: /admin
+2) API durum kontrolü: /api/status
+3) Demo tehdit haritası: /api/threat-map
+4) Analiz geçmişi dışa aktarma: /export-json ve /export-csv
+5) Analiz sonucuna güven skoru eklendi.
+6) Tehdit aşaması eklendi: Normal izleme, Doğrulama gerekli, Yüksek öncelikli inceleme, Kritik alarm.
+7) Harici API anahtarı kontrolü eklendi: VirusTotal, Google Safe Browsing, AbuseIPDB, OpenAI.
+8) Rapor dosyası v6 olarak güncellendi.
+9) Arayüzde v6 alanları eklendi.
+10) Render ayarları korunmuştur.
+
+Render Komutları:
+Build Command: pip install -r requirements.txt
+Start Command: gunicorn app:app

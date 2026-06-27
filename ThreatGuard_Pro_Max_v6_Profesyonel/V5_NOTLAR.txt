@@ -1,0 +1,12 @@
+ThreatGuard Pro Max v5
+
+Eklenen / iyileştirilen özellikler:
+- Alan adı zekası: tire, rakam yoğunluğu, uzun label, punycode/homograf, kurum/marka taklidi sinyalleri.
+- Karar kutusu: karar, öncelik, önerilen işlem ve MITRE-benzeri sınıflandırma.
+- Link detaylarında alan adı parmak izi ve sinyal açıklamaları.
+- Rapor çıktısı v5 olarak güncellendi.
+- Örneklerin otomatik analiz ve sonuç karışma hatasına karşı mevcut düzeltmeler korundu.
+
+Render ayarları:
+Build Command: pip install -r requirements.txt
+Start Command: gunicorn app:app
