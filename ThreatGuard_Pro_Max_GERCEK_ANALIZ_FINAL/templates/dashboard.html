@@ -1,0 +1,29 @@
+
+<!doctype html>
+<html lang="tr">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Dashboard</title><link rel="stylesheet" href="/static/style.css"></head>
+<body>
+<header class="nav"><div class="brand">ThreatGuard <span>Dashboard</span></div><nav><a href="/">Ana Sayfa</a><a href="/link">Analiz</a><a href="/export.csv">CSV</a></nav></header>
+<main class="container">
+  <h1>Güvenlik Operasyon Paneli</h1>
+  <section class="grid">
+    <div class="card stat"><b>{{ total }}</b><span>Toplam Analiz</span></div>
+    <div class="card stat red"><b>{{ dangerous }}</b><span>Tehlikeli</span></div>
+    <div class="card stat yellow"><b>{{ suspicious }}</b><span>Şüpheli</span></div>
+    <div class="card stat green"><b>{{ low }}</b><span>Düşük Risk</span></div>
+  </section>
+  <section class="card">
+    <h3>Son Analizler</h3>
+    <div class="table">
+      <table>
+        <thead><tr><th>Modül</th><th>İçerik</th><th>Risk</th><th>Seviye</th><th>Tür</th><th>Tarih</th></tr></thead>
+        <tbody>
+        {% for r in recent %}
+          <tr><td>{{ r[0] }}</td><td>{{ r[1][:60] }}...</td><td>{{ r[2] }}</td><td>{{ r[3] }}</td><td>{{ r[4] }}</td><td>{{ r[5] }}</td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</body></html>

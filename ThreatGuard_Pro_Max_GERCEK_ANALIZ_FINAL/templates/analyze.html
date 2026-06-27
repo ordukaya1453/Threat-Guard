@@ -1,0 +1,87 @@
+
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ title }} - ThreatGuard</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<header class="nav">
+  <div class="brand">ThreatGuard <span>Pro Max</span></div>
+  <nav>
+    <a href="/">Ana Sayfa</a>
+    <a href="/link">Link</a>
+    <a href="/sms">SMS</a>
+    <a href="/news">Haber</a>
+    <a href="/dashboard">Dashboard</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="panel">
+    <div class="badge">{{ title }}</div>
+    <h1>Çok Katmanlı Analiz</h1>
+    <p class="muted">İçeriği gir, ThreatGuard SSL, URL yapısı, RDAP/WHOIS, API tehdit kontrolü ve AI yorumunu birlikte hesaplasın.</p>
+    <input type="hidden" id="module" value="{{ module }}">
+    <textarea id="inputText" placeholder="Örn: https://afad-yardim-dogrula.com/acil-bagis veya SMS/haber metni..."></textarea>
+    <div class="actions">
+      <button class="btn primary" onclick="runAnalysis()">Analiz Et</button>
+      <button class="btn" onclick="downloadReport()">Rapor İndir</button>
+    </div>
+    <div class="examples">
+      <button onclick="setExample('safe')">Güvenli Örnek</button>
+      <button onclick="setExample('suspicious')">Şüpheli Örnek</button>
+      <button onclick="setExample('danger')">Tehlikeli Örnek</button>
+    </div>
+  </section>
+
+  <section id="steps" class="steps hidden">
+    <div>🔍 URL ayrıştırılıyor...</div>
+    <div>🔒 SSL/HTTPS kontrol ediliyor...</div>
+    <div>🌍 WHOIS/RDAP bilgisi sorgulanıyor...</div>
+    <div>🛡️ Tehdit API kontrolleri değerlendiriliyor...</div>
+    <div>🤖 ThreatGuard AI raporu oluşturuluyor...</div>
+  </section>
+
+  <section id="result" class="result hidden">
+    <div class="score-card">
+      <div>
+        <h2 id="riskLevel">-</h2>
+        <p id="threatType" class="muted"></p>
+      </div>
+      <div class="circle"><span id="riskScore">0</span><small>/100</small></div>
+    </div>
+
+    <div class="grid">
+      <div class="card"><h3>Güven Puanı</h3><p id="trustScore">-</p></div>
+      <div class="card"><h3>API Durumu</h3><p id="apiStatus">-</p></div>
+      <div class="card"><h3>URL Sayısı</h3><p id="urlCount">-</p></div>
+    </div>
+
+    <div class="card ai">
+      <h3>ThreatGuard AI Yorumu</h3>
+      <p id="aiComment"></p>
+    </div>
+
+    <div class="grid two">
+      <div class="card">
+        <h3>Tespit Edilen Bulgular</h3>
+        <ul id="reasons"></ul>
+      </div>
+      <div class="card">
+        <h3>Güvenlik Önerileri</h3>
+        <ul id="suggestions"></ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Teknik Link Detayları</h3>
+      <div id="urlDetails"></div>
+    </div>
+  </section>
+</main>
+<script src="/static/script.js"></script>
+</body>
+</html>
