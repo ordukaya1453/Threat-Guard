@@ -1,0 +1,13 @@
+RENDER YAYINLAMA AYARLARI
+
+1) Bu klasörü ZIP'ten çıkar.
+2) GitHub'da yeni repo oluştur ve tüm dosyaları yükle.
+3) Render > New > Web Service seç.
+4) GitHub reposunu bağla.
+5) Ayarlar:
+   Build Command: pip install -r requirements.txt
+   Start Command: gunicorn app:app
+6) Deploy Web Service butonuna bas.
+
+Canlı site linki şu formatta olur:
+https://proje-adin.onrender.com

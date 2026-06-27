@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel | ThreatGuard Pro Max</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/style.css?v=gelistirilmis">
+</head>
+<body>
+<nav class="top-nav">
+    <div class="logo">ThreatGuard <span>Pro Max</span></div>
+    <div class="nav-links">
+        <a href="/">Ana Sayfa</a>
+        <a href="/link">Link</a>
+        <a href="/sms">SMS</a>
+        <a href="/news">Haber</a>
+        <a href="/dashboard">Panel</a>
+    </div>
+</nav>
+
+<main class="page">
+    <section class="section-title">
+        <h1>ThreatGuard Yönetim Paneli</h1>
+        <p>Analiz geçmişi, risk dağılımı, tehdit türleri ve sistem özeti.</p>
+    </section>
+
+    <section class="stats">
+        <div class="stat-card"><h3>Toplam Analiz</h3><span>{{ total }}</span><p>Sistemde kayıtlı analiz</p></div>
+        <div class="stat-card danger"><h3>Tehlikeli</h3><span>{{ dangerous }}</span><p>Yüksek riskli içerik</p></div>
+        <div class="stat-card warning"><h3>Şüpheli</h3><span>{{ suspicious }}</span><p>İncelenmesi gereken içerik</p></div>
+        <div class="stat-card safe"><h3>Düşük Risk</h3><span>{{ low }}</span><p>Güvenli görünen içerik</p></div>
+    </section>
+
+    <section class="insight-grid">
+        <div class="insight-card">
+            <h2>En Çok İzlenen Tehditler</h2>
+            <p>Phishing, sahte bağış kampanyaları ve dezenformasyon içerikleri bu platformun ana odak alanıdır.</p>
+        </div>
+        <div class="insight-card">
+            <h2>Karar Destek Mantığı</h2>
+            <p>Sistem kesin hüküm vermez; risk puanı, gerekçe ve güvenlik önerisi üretir.</p>
+        </div>
+        <div class="insight-card">
+            <h2>Demo Senaryosu</h2>
+            <p>Jüriye önce riskli bir link, sonra SMS ve haber analizi gösterilebilir.</p>
+        </div>
+    </section>
+
+    <section class="chart-grid">
+        <div class="chart-box"><h2>Risk Dağılımı</h2><canvas id="riskChart"></canvas></div>
+        <div class="chart-box"><h2>Tehdit Türleri</h2><canvas id="typeChart"></canvas></div>
+    </section>
+
+    <section class="table-box">
+        <h2>Son Analizler</h2>
+        <table>
+            <thead><tr><th>Modül</th><th>Metin</th><th>Puan</th><th>Risk</th><th>Tür</th><th>Tarih</th></tr></thead>
+            <tbody>
+            {% for item in recent %}
+                <tr>
+                    <td>{{ item[0] }}</td>
+                    <td>{{ item[1][:60] }}...</td>
+                    <td>{{ item[2] }}</td>
+                    <td>{{ item[3] }}</td>
+                    <td>{{ item[4] }}</td>
+                    <td>{{ item[5] }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<script>
+const dangerous = {{ dangerous }};
+const suspicious = {{ suspicious }};
+const low = {{ low }};
+const typeLabels = {{ threat_stats | map(attribute=0) | list | tojson }};
+const typeData = {{ threat_stats | map(attribute=1) | list | tojson }};
+
+new Chart(document.getElementById("riskChart"), {
+    type: "doughnut",
+    data: {
+        labels: ["Tehlikeli", "Şüpheli", "Düşük Risk"],
+        datasets: [{ data: [dangerous, suspicious, low], backgroundColor: ["#ff3b3b", "#f5b942", "#0fb9b1"] }]
+    }
+});
+
+new Chart(document.getElementById("typeChart"), {
+    type: "bar",
+    data: {
+        labels: typeLabels,
+        datasets: [{ label: "Tehdit Sayısı", data: typeData, backgroundColor: "#1c6dd0" }]
+    }
+});
+</script>
+</body>
+</html>
