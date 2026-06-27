@@ -1,0 +1,19 @@
+ThreatGuard Pro Max v4
+
+Eklenenler:
+- SSL sertifika kontrolü
+- HTTPS kontrolü
+- Yönlendirme/final URL kontrolü
+- Temel HTTP güvenlik başlıkları kontrolü
+- Link kısaltıcı tespiti
+- Marka/kurum taklidi alan adı tespiti
+- Şüpheli TLD kontrolü
+- IP adresiyle link tespiti
+- QR Kod Link Analizi sayfası
+- E-posta Phishing Analizi sayfası
+- Riskli/şüpheli/güvenli örneklerde eski sonucun kalmasını engelleyen JS düzeltmesi
+- Daha detaylı TXT rapor çıktısı
+
+Render ayarları:
+Build Command: pip install -r requirements.txt
+Start Command: gunicorn app:app
