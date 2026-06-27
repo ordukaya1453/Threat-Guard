@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }} | ThreatGuard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css?v=gelistirilmis">
+</head>
+<body>
+<nav class="top-nav">
+    <div class="logo">ThreatGuard <span>Pro Max</span></div>
+    <div class="nav-links">
+        <a href="/">Ana Sayfa</a>
+        <a href="/link">Link</a>
+        <a href="/sms">SMS</a>
+        <a href="/news">Haber</a>
+        <a href="/dashboard">Panel</a>
+    </div>
+</nav>
+
+<main class="page">
+    <section class="analyze-box">
+        <h1>{{ title }}</h1>
+        <p>İçeriği aşağıya yapıştır. ThreatGuard risk puanı, güven puanı, tehdit türü ve AI yorumu üretecek.</p>
+
+        <input type="hidden" id="moduleType" value="{{ module }}">
+
+        {% if module == "link" %}
+        <div class="example-area">
+            <h2>Örnek Linkler</h2>
+            <div class="example-grid">
+                <div class="example-card safe-example" onclick="setExample('https://www.afad.gov.tr')">
+                    <span>Güvenli</span>
+                    <h3>AFAD Resmî Site</h3>
+                    <p>https://www.afad.gov.tr</p>
+                </div>
+                <div class="example-card safe-example" onclick="setExample('https://www.turkiye.gov.tr')">
+                    <span>Güvenli</span>
+                    <h3>e-Devlet Resmî Site</h3>
+                    <p>https://www.turkiye.gov.tr</p>
+                </div>
+                <div class="example-card danger-example" onclick="setExample('https://afad-yardim2026.com')">
+                    <span>Riskli</span>
+                    <h3>Sahte Yardım Linki</h3>
+                    <p>https://afad-yardim2026.com</p>
+                </div>
+                <div class="example-card warning-example" onclick="setExample('https://edevlet-giris.net')">
+                    <span>Şüpheli</span>
+                    <h3>Sahte Giriş Linki</h3>
+                    <p>https://edevlet-giris.net</p>
+                </div>
+            </div>
+        </div>
+        {% elif module == "news" %}
+        <div class="example-area">
+            <h2>Haber Senaryoları</h2>
+            <div class="example-grid">
+                <div class="example-card safe-example" onclick="setExample('AFAD resmi açıklamasına göre deprem bölgesindeki güncel duyurular afad.gov.tr adresinden takip edilebilir.')">
+                    <span>Resmî</span>
+                    <h3>Doğrulanabilir Haber</h3>
+                    <p>Kaynağı resmî kuruma yönlendirir.</p>
+                </div>
+                <div class="example-card warning-example" onclick="setExample('Son dakika! Yetkililer açıklamıyor ama elektriklerin 3 gün boyunca kesileceği iddia ediliyor. Herkes paylaşsın.')">
+                    <span>Şüpheli</span>
+                    <h3>Kaynağı Belirsiz Haber</h3>
+                    <p>Panik ve belirsizlik içerir.</p>
+                </div>
+                <div class="example-card danger-example" onclick="setExample('ŞOK! Devlet saklıyor, İstanbul tamamen boşaltılıyor. Kesin bilgi, paylaşmadan geçme!')">
+                    <span>Riskli</span>
+                    <h3>Dezenformasyon Örneği</h3>
+                    <p>Abartılı ve panik üreten dil kullanır.</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <textarea id="inputText" placeholder="Analiz etmek istediğin link, SMS veya haber metnini buraya yapıştır..."></textarea>
+
+        <div class="buttons">
+            <button onclick="analyzeText()">Analiz Et</button>
+
+            {% if module == "sms" or module == "general" %}
+            <button class="secondary" onclick="loadDanger()">Tehlikeli Örnek</button>
+            <button class="secondary" onclick="loadSuspicious()">Şüpheli Örnek</button>
+            <button class="secondary" onclick="loadSafe()">Güvenli Örnek</button>
+            {% endif %}
+
+            <button class="report-btn" onclick="downloadReport()">Rapor İndir</button>
+        </div>
+
+        <div id="loadingBox" class="loading hidden">
+            <div class="spinner"></div>
+            <p>ThreatGuard analiz motoru çalışıyor...</p>
+        </div>
+
+        <div id="result" class="result hidden">
+            <div class="result-header">
+                <div>
+                    <h2 id="riskLevel"></h2>
+                    <p id="threatType"></p>
+                    <p id="trustScore"></p>
+                </div>
+                <span id="riskScore"></span>
+            </div>
+
+            <div class="score-panel">
+                <div>
+                    <label>Risk Puanı</label>
+                    <div class="bar"><div id="barFill"></div></div>
+                </div>
+                <div>
+                    <label>Güven Puanı</label>
+                    <div class="bar trust-bar"><div id="trustFill"></div></div>
+                </div>
+            </div>
+
+            <div class="ai-box">
+                <h3>AI Risk Yorumu</h3>
+                <p id="aiComment"></p>
+            </div>
+
+            <h3>Tespit Edilen Bulgular</h3>
+            <ul id="reasons"></ul>
+
+            <h3>Güvenlik Önerileri</h3>
+            <ul id="suggestions"></ul>
+        </div>
+    </section>
+</main>
+
+<script src="/static/script.js?v=gelistirilmis"></script>
+</body>
+</html>
